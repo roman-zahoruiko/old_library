@@ -13,8 +13,8 @@ class BookForm(forms.ModelForm):
 
 class BookLoanForm(forms.ModelForm):
     loan_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
-    return_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    return_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
 
     class Meta:
         model = BookLoan
-        fields = ['book', 'client', 'loan_date', 'return_date']
+        fields = ['book', 'client', 'loan_date', 'return_date', 'returned']

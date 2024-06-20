@@ -1,11 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>List of Book Loans</h2>
-<a href="{% url 'bookloan-add' %}">Add New Loan</a>
-<ul>
-    {% for loan in bookloans %}
-        <li>{{ loan.book.title }} loaned to {{ loan.client.name }} on {{ loan.loan_date }}{% if loan.return_date %}, returned on {{ loan.return_date }}{% else %}, not yet returned{% endif %}</li>
-    {% endfor %}
-</ul>
+    <h2>List of Book Loans</h2>
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="Search by title, client, or date" value="{{ request.GET.q }}">
+        <label>
+            <input type="checkbox" name="filter_returned" value="true"
+                   {% if request.GET.filter_returned == 'true' %}checked{% endif %}>
+            Only show not returned
+        </label>
+        <button type="submit">Search</button>
+    </form>
+    <br>
+    <a href="{% url 'bookloan-add' %}">Add New Loan</a>
+    <table>
+        <thead>
+            <th>Book Title</th>
+            <th>Client</th>
+            <th>Contact</th>
+            <th>Loan Date</th>
+            <th>Return Date</th>
+            <th>Returned</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for loan in bookloans %}
+             <tr class="bookloan-row" data-return-date="{{ loan.return_date }}">
+                <td>{{ loan.book.title }}</td>
+                <td>{{ loan.client.name }}</td>
+                <td>{{ loan.client.contact }}</td>
+                <td>{{ loan.loan_date }}</td>
+                <td>{{ loan.return_date }}</td>
+                <td class="returned">{{ loan.returned }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

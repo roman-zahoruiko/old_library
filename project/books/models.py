@@ -30,7 +30,8 @@ class BookLoan(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     client = models.ForeignKey(LibraryClient, on_delete=models.CASCADE)
     loan_date = models.DateField(default=date.today)
-    return_date = models.DateField(blank=True, null=True)
+    return_date = models.DateField(default=date.today)
+    returned = models.BooleanField(default=False)
 
     @property
     def is_overdue(self):
@@ -39,4 +40,4 @@ class BookLoan(models.Model):
         return False
 
     def __str__(self):
-        return u'{} - {} - {}'.format(self.book.title, self.client.name, self.return_date)
+        return u'{} - {} - {} - {}'.format(self.book.title, self.client.name, self.return_date, self.returned)
