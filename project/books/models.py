@@ -39,4 +39,4 @@ class BookLoan(models.Model):
         return False
 
     def __str__(self):
-        return u'{} - {}'.format(self.book.title, self.client.name)
+        return u'{} - {} - {}'.format(self.book.title, self.client.name, self.return_date)
