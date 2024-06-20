@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>List of Book Loans</h2>
+<a href="{% url 'bookloan-add' %}">Add New Loan</a>
+<ul>
+    {% for loan in bookloans %}
+        <li>{{ loan.book.title }} loaned to {{ loan.client.name }} on {{ loan.loan_date }}{% if loan.return_date %}, returned on {{ loan.return_date }}{% else %}, not yet returned{% endif %}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
