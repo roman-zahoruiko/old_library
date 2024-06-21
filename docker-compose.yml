@@ -1,0 +1,36 @@
+services:
+
+  db:
+    image: postgres:16.3
+    environment:
+      POSTGRES_DB: old_library
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    env_file:
+      - ./project/.env.sample
+
+  web:
+    build: .
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+            gunicorn --bind 0.0.0.0:8000 config.wsgi:application"
+    volumes:
+      - ./project:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./project/.env.sample
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    volumes:
+      - ./project/static_root:/usr/src/app/static
