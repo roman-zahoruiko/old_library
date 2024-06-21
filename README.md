@@ -11,6 +11,7 @@ Old library test task
 - PostgreSQL
 - Docker
 
+## Setup Instructions
 1. **Clone the Repository**
 ```bash
 git clone https://github.com/roman-zahoruiko/old_library.git old_library-roman-zahoruiko
