@@ -17,16 +17,16 @@ Old library test task
 git clone https://github.com/roman-zahoruiko/old_library.git old_library-roman-zahoruiko
 cd old_library-roman-zahoruiko
 ```
-2. Build and Run the Application
+2. **Build and Run the Application**
 ```bash
 docker compose up -d --build
 ```
-3. Restore Database from SQL Dump:
+3. **Restore Database from SQL Dump**
 ```bash
 docker compose cp old_library.sql db:/old_library.sql
 docker compose exec -it db pg_restore -U postgres -d old_library /old_library.sql
 ```
-4. Access the Application
+4. **Access the Application**
 - Django admin page: http://localhost/admin/
 - Books App: http://localhost/books/
 - Test admin user:
