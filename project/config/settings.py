@@ -10,6 +10,8 @@ if DEBUG:
     dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.sample')
     load_dotenv(dotenv_path)
 
+DEFAULT_CHARSET = 'utf-8'
+
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
@@ -71,6 +73,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
