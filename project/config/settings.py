@@ -10,6 +10,8 @@ if DEBUG:
     dotenv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.sample')
     load_dotenv(dotenv_path)
 
+LOGIN_URL = '/admin/login/'
+
 DEFAULT_CHARSET = 'utf-8'
 
 ALLOWED_HOSTS = []

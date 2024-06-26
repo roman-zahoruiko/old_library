@@ -1,6 +1,10 @@
 from django.db.models import Q
+from django.http import JsonResponse
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView
 from django.core.urlresolvers import reverse_lazy
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from books.mixins import LoginRequiredMixin
 from books.models import Book, BookLoan
 from books.forms import BookForm, BookLoanForm
@@ -54,3 +58,16 @@ class BookLoanCreateView(LoginRequiredMixin, CreateView):
     form_class = BookLoanForm
     template_name = 'bookloan_form.html'
     success_url = reverse_lazy('bookloan-list')
+
+
+@login_required
+@require_POST
+def mark_returned(request, loan_id):
+    try:
+        loan = BookLoan.objects.get(id=loan_id)
+        loan.returned = True
+        loan.save()
+        next_url = request.POST.get('next', '/')
+        return redirect(next_url)
+    except BookLoan.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'BookLoan not found'})

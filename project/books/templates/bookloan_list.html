@@ -22,6 +22,7 @@
             <th>Loan Date</th>
             <th>Return Date</th>
             <th>Returned</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -33,6 +34,15 @@
                 <td>{{ loan.loan_date }}</td>
                 <td>{{ loan.return_date }}</td>
                 <td class="returned">{{ loan.returned }}</td>
+                <td>
+                    {% if not loan.returned %}
+                        <form method="post" action="{% url 'mark-returned' loan.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <button type="submit" class="mark_returned">Mark as Returned</button>
+                        </form>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
