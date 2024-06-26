@@ -8,10 +8,10 @@ class Author(models.Model):
     name = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return self.name
+        return u'{}'.format(self.name)
 
     def __str__(self):
-        return self.name
+        return self.__unicode__().encode('utf-8')
 
     class Meta:
         verbose_name = 'Book Author'
@@ -24,10 +24,10 @@ class Book(models.Model):
     published_date = models.DateField()
 
     def __unicode__(self):
-        return self.title
+        return u'{}'.format(self.title)
 
     def __str__(self):
-        return self.title
+        return self.__unicode__().encode('utf-8')
 
     class Meta:
         verbose_name = 'Book'
@@ -42,7 +42,7 @@ class LibraryClient(models.Model):
         return u'{} ({})'.format(self.name, self.contact)
 
     def __str__(self):
-        return u'{} ({})'.format(self.name, self.contact)
+        return self.__unicode__().encode('utf-8')
 
     class Meta:
         verbose_name = 'Library Client'
@@ -66,7 +66,7 @@ class BookLoan(models.Model):
         return u'{} - {} - {} - {}'.format(self.book.title, self.client.name, self.return_date, self.returned)
 
     def __str__(self):
-        return u'{} - {} - {} - {}'.format(self.book.title, self.client.name, self.return_date, self.returned)
+        return self.__unicode__().encode('utf-8')
 
     class Meta:
         verbose_name = 'Book Loan'
